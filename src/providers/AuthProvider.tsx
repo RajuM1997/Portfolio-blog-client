@@ -18,7 +18,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           },
         });
         const data = await res.json();
-        setUser(data);
+
+        setUser(data.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -27,6 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
     getMe();
   }, []);
+
   const logout = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/logout`, {
       method: "POST",
@@ -40,6 +42,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     setUser(null);
   };
+
   const login = async (data: FieldValues) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
       method: "POST",
@@ -53,7 +56,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("User Login Failed", await res.text());
     }
     const result = await res.json();
-    setUser(result.data);
+    setUser(result.user);
     return result;
   };
 

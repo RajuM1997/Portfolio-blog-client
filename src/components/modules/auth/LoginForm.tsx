@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/Provider/AuthProvider";
+import { useAuth } from "@/providers/AuthProvider";
 
 // type LoginFormValues = {
 //   email: string;
@@ -44,7 +44,6 @@ export default function LoginForm() {
 
   const handleSocialLogin = (provider: "google" | "github") => {
     console.log(`Login with ${provider}`);
-    // signIn();
   };
 
   return (

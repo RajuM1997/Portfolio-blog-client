@@ -6,13 +6,11 @@ import Link from "next/link";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 import CommonButton from "../modules/homes/CommonButton";
-import { useAuth } from "@/Provider/AuthProvider";
-import Loading from "../ui/Loading";
+import { useAuth } from "@/providers/AuthProvider";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const { user, logout, loading } = useAuth();
-  console.log(user);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,9 +24,7 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  if (loading) {
-    return <Loading />;
-  }
+
   return (
     <nav
       className={`
@@ -54,7 +50,7 @@ const Navbar = () => {
 
         {/* Actions and Mobile Menu */}
         <div className="flex items-center gap-4 md:gap-6">
-          {user?.data?.email || user?.user?.email ? (
+          {user?.email ? (
             <CommonButton onClick={logout}>Logout</CommonButton>
           ) : (
             <CommonButton>

@@ -1,6 +1,9 @@
+import { getAllBlog } from "@/action/blog/route";
 import BlogCard from "@/components/modules/Blog/BlogCard";
+import { IBlog } from "@/types/blog";
 
-const Blogs = () => {
+const Blogs = async () => {
+  const { data } = await getAllBlog();
   return (
     <div className="py-26 px-4 lg:px-0">
       <div className="pb-8">
@@ -13,9 +16,9 @@ const Blogs = () => {
           world.
         </p>
       </div>
-      {Array.from({ length: 3 }).map((_, i: number) => (
-        <div className="grid grid-cols-1 md:grid-cols-2" key={i}>
-          <BlogCard index={i} />
+      {data.map((blog: IBlog, i: number) => (
+        <div className="grid grid-cols-1 md:grid-cols-2" key={blog.id}>
+          <BlogCard blog={blog} index={i} />
         </div>
       ))}
     </div>
