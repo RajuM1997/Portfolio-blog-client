@@ -1,9 +1,11 @@
 import CreateProjectForm from "@/components/modules/Project/CreateProjectForm";
+import { getServerCookies } from "@/lib/getServerCookie";
 
-const AddProject = () => {
+const AddProject = async () => {
+  const token = await getServerCookies();
   return (
     <div className="w-full max-w-7xl flex items-center mx-auto py-5">
-      <CreateProjectForm />
+      <CreateProjectForm token={token as string} />
     </div>
   );
 };

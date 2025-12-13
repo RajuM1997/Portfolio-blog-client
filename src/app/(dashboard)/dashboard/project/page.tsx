@@ -1,12 +1,14 @@
-import { getAllBlog } from "@/action/blog/route";
+import { getAllProject } from "@/action/project/route";
 import ProjectTable from "@/components/modules/Project/ProjectTable";
+import { getServerCookies } from "@/lib/getServerCookie";
 
 const Project = async () => {
-  const { data } = await getAllBlog();
+  const { data } = await getAllProject();
+  const token = await getServerCookies();
 
   return (
     <div className="w-full max-w-7xl mx-auto py-5">
-      <ProjectTable data={data} />
+      <ProjectTable data={data} token={token as string} />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import { createProject } from "@/action/project/route";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,34 +13,39 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FieldValues, useForm } from "react-hook-form";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 
-export default function CreateProjectForm() {
+export default function CreateProjectForm({ token }: { token: string }) {
   const form = useForm<FieldValues>({
     defaultValues: {
-      title: "",
-      content: "",
+      project_name: "",
+      description: "",
       thumbnail: "",
-      tags: "",
+      live_link: "",
+      features: "",
+      technology: "",
+      server_repo_link: "",
+      client_repo_link: "",
     },
   });
+
   const onSubmit = async (values: FieldValues) => {
     const newData = {
       ...values,
     };
-    newData.tags = values?.tags?.split(",");
+    newData.features = values?.features?.split(",");
+    newData.technology = values?.technology?.split(",");
 
-    // try {
-    //   const result = await createBlog(newData);
-    //   const toastId = toast.loading("Blog creating");
-    //   if (result.success) {
-    //     form.reset();
-
-    //     toast.success("Blog created successfully", { id: toastId });
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const result = await createProject(newData, token);
+      const toastId = toast.loading("Project creating");
+      if (result.success) {
+        form.reset();
+        toast.success("Project created successfully", { id: toastId });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -50,17 +56,74 @@ export default function CreateProjectForm() {
           className="space-y-4 max-w-3xl mx-auto w-full"
           id="update-blog"
         >
-          {/* Title */}
+          {/* Name */}
           <div className="flex items-center gap-2">
             <div className="grid flex-1 gap-2">
               <FormField
                 control={form.control}
-                name="title"
+                name="project_name"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>Project Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Blog Title" {...field} />
+                      <Input placeholder="Project Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* repo client link */}
+          <div className="flex items-center gap-2">
+            <div className="grid flex-1 gap-2">
+              <FormField
+                control={form.control}
+                name="client_repo_link"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Github Client Repo Link</FormLabel>
+                    <FormControl>
+                      <Input placeholder="https://www.example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* repo server link */}
+          <div className="flex items-center gap-2">
+            <div className="grid flex-1 gap-2">
+              <FormField
+                control={form.control}
+                name="server_repo_link"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Github Server Repo Link</FormLabel>
+                    <FormControl>
+                      <Input placeholder="https://www.example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Live website link */}
+          <div className="flex items-center gap-2">
+            <div className="grid flex-1 gap-2">
+              <FormField
+                control={form.control}
+                name="live_link"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Live Website Link</FormLabel>
+                    <FormControl>
+                      <Input placeholder="https://www.example.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -74,14 +137,14 @@ export default function CreateProjectForm() {
             <div className="grid flex-1 gap-2">
               <FormField
                 control={form.control}
-                name="content"
+                name="description"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Content</FormLabel>
+                    <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea
                         className="h-25"
-                        placeholder="Blog Content"
+                        placeholder="Project Description"
                         {...field}
                       />
                     </FormControl>
@@ -111,20 +174,39 @@ export default function CreateProjectForm() {
             </div>
           </div>
 
-          {/* Tags */}
+          {/* features */}
           <div className="flex items-center gap-2">
             <div className="grid flex-1 gap-2">
               <FormField
                 control={form.control}
-                name="tags"
+                name="features"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Tag (comma separated)</FormLabel>
+                    <FormLabel>Features (comma separated)</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Next.js, React, Web Development"
+                        placeholder="All Private route protected with jwt, Custom auth "
                         {...field}
                       />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* features */}
+          <div className="flex items-center gap-2">
+            <div className="grid flex-1 gap-2">
+              <FormField
+                control={form.control}
+                name="technology"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Technology (comma separated)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="React, Next, Node" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

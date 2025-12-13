@@ -1,4 +1,5 @@
 "use client";
+import { updateProject } from "@/action/project/route";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,18 +20,27 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { IProject } from "@/types/project";
 import { Edit2 } from "lucide-react";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-
-export function ProjectUpdateModel() {
+import { toast } from "sonner";
+interface IProjectProps {
+  project: IProject;
+  token: string;
+}
+export function ProjectUpdateModel({ project, token }: IProjectProps) {
   const [open, setOpen] = useState(false);
   const form = useForm<FieldValues>({
     defaultValues: {
-      title: "",
-      content: "",
-      thumbnail: "",
-      tag: "",
+      project_name: project.project_name || "",
+      description: project.description || "",
+      thumbnail: project.thumbnail || "",
+      live_link: project.live_link || "",
+      features: project.features || "",
+      technology: project.technology || "",
+      server_repo_link: project.server_repo_link || "",
+      client_repo_link: project.client_repo_link || "",
     },
   });
 
@@ -38,7 +48,23 @@ export function ProjectUpdateModel() {
     const newData = {
       ...values,
     };
-    newData.tag = values?.tag?.split(",");
+
+    if (!Array.isArray(values.features)) {
+      newData.features = values?.features?.split(",");
+    }
+    if (!Array.isArray(values.technology)) {
+      newData.technology = values?.technology?.split(",");
+    }
+    const toastId = toast.loading("Project updating...");
+    try {
+      const res = await updateProject(newData, Number(project.id), token);
+      if (res.success) {
+        toast.success("Project updated successfully", { id: toastId });
+        setOpen(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -61,17 +87,83 @@ export function ProjectUpdateModel() {
             className="space-y-4 w-full"
             id="update-blog"
           >
-            {/* Title */}
+            {/* Name */}
             <div className="flex items-center gap-2">
               <div className="grid flex-1 gap-2">
                 <FormField
                   control={form.control}
-                  name="title"
+                  name="project_name"
                   render={({ field }) => (
                     <FormItem className="flex-1">
-                      <FormLabel>Title</FormLabel>
+                      <FormLabel>Project Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Blog Title" {...field} />
+                        <Input placeholder="Project Name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            {/* repo client link */}
+            <div className="flex items-center gap-2">
+              <div className="grid flex-1 gap-2">
+                <FormField
+                  control={form.control}
+                  name="client_repo_link"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Github Client Repo Link</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="https://www.example.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            {/* repo server link */}
+            <div className="flex items-center gap-2">
+              <div className="grid flex-1 gap-2">
+                <FormField
+                  control={form.control}
+                  name="server_repo_link"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Github Server Repo Link</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="https://www.example.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            {/* Live website link */}
+            <div className="flex items-center gap-2">
+              <div className="grid flex-1 gap-2">
+                <FormField
+                  control={form.control}
+                  name="live_link"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Live Website Link</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="https://www.example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -85,14 +177,14 @@ export function ProjectUpdateModel() {
               <div className="grid flex-1 gap-2">
                 <FormField
                   control={form.control}
-                  name="content"
+                  name="description"
                   render={({ field }) => (
                     <FormItem className="flex-1">
-                      <FormLabel>Content</FormLabel>
+                      <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Textarea
                           className="h-25"
-                          placeholder="Blog Content"
+                          placeholder="Project Description"
                           {...field}
                         />
                       </FormControl>
@@ -125,20 +217,39 @@ export function ProjectUpdateModel() {
               </div>
             </div>
 
-            {/* Tags */}
+            {/* features */}
             <div className="flex items-center gap-2">
               <div className="grid flex-1 gap-2">
                 <FormField
                   control={form.control}
-                  name="tag"
+                  name="features"
                   render={({ field }) => (
                     <FormItem className="flex-1">
-                      <FormLabel>Tag (comma separated)</FormLabel>
+                      <FormLabel>Features (comma separated)</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Next.js, React, Web Development"
+                          placeholder="All Private route protected with jwt, Custom auth "
                           {...field}
                         />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            {/* features */}
+            <div className="flex items-center gap-2">
+              <div className="grid flex-1 gap-2">
+                <FormField
+                  control={form.control}
+                  name="technology"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Technology (comma separated)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="React, Next, Node" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
