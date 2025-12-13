@@ -1,4 +1,3 @@
-"use client";
 import {
   Table,
   TableBody,
@@ -11,32 +10,15 @@ import CommonButton from "../homes/CommonButton";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import { BlogUpdateModel } from "./BlogUpdateModal";
 import { IBlog } from "@/types/blog";
-import { toast } from "sonner";
-import { deleteBlog } from "@/action/blog/route";
+import { ProjectUpdateModel } from "./ProjectUpdateModal";
 
-interface IProps {
-  data: IBlog[];
-  token?: string;
-}
-
-const BlogTable = ({ data, token }: IProps) => {
-  const handleDeleteBlog = async (id?: string) => {
-    try {
-      const result = await deleteBlog(Number(id), token as string);
-      if (result.success) {
-        toast.success("Blog delete successfully");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+const ProjectTable = ({ data }: { data: Partial<IBlog[]> }) => {
   return (
     <div className="w-full max-w-7xl">
       <div className="ml-auto text-right py-5">
         <CommonButton>
-          <Link href={"/dashboard/add-blog"}>Add Blog</Link>
+          <Link href={"/dashboard/add-project"}>Add Project</Link>
         </CommonButton>
       </div>
       <Table className="">
@@ -60,15 +42,9 @@ const BlogTable = ({ data, token }: IProps) => {
               <TableCell>{blog?.tags}</TableCell>
               <TableCell>0</TableCell>
               <TableCell className="text-right flex gap-4 justify-end">
-                {blog && (
-                  <BlogUpdateModel blog={blog} token={token as string} />
-                )}
+                <ProjectUpdateModel />
 
-                <Button
-                  onClick={() => handleDeleteBlog(blog?.id)}
-                  variant={"secondary"}
-                  className="cursor-pointer"
-                >
+                <Button variant={"secondary"} className="cursor-pointer">
                   <Trash2 className="text-red-500" />
                 </Button>
               </TableCell>
@@ -80,4 +56,4 @@ const BlogTable = ({ data, token }: IProps) => {
   );
 };
 
-export default BlogTable;
+export default ProjectTable;

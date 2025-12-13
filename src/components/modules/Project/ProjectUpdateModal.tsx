@@ -1,5 +1,4 @@
 "use client";
-import { updateBlog } from "@/action/blog/route";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,23 +19,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { IBlog } from "@/types/blog";
 import { Edit2 } from "lucide-react";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { toast } from "sonner";
-interface IProps {
-  blog: IBlog;
-  token: string;
-}
-export function BlogUpdateModel({ blog, token }: IProps) {
+
+export function ProjectUpdateModel() {
   const [open, setOpen] = useState(false);
   const form = useForm<FieldValues>({
     defaultValues: {
-      title: blog.title || "",
-      content: blog.content || "",
-      thumbnail: blog.thumbnail || "",
-      tags: blog.tags || "",
+      title: "",
+      content: "",
+      thumbnail: "",
+      tag: "",
     },
   });
 
@@ -44,20 +38,7 @@ export function BlogUpdateModel({ blog, token }: IProps) {
     const newData = {
       ...values,
     };
-
-    if (!Array.isArray(values.tags)) {
-      newData.tags = values?.tags?.split(",");
-    }
-    const toastId = toast.loading("Blog updating...");
-    try {
-      const res = await updateBlog(newData, Number(blog.id), token);
-      if (res.success) {
-        toast.success("Blog updated successfully", { id: toastId });
-        setOpen(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    newData.tag = values?.tag?.split(",");
   };
 
   return (
@@ -149,7 +130,7 @@ export function BlogUpdateModel({ blog, token }: IProps) {
               <div className="grid flex-1 gap-2">
                 <FormField
                   control={form.control}
-                  name="tags"
+                  name="tag"
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <FormLabel>Tag (comma separated)</FormLabel>

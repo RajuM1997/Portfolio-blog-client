@@ -1,6 +1,5 @@
 "use client";
 
-import { createBlog } from "@/action/blog/route";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,9 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FieldValues, useForm } from "react-hook-form";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
-export default function CreateBlogForm({ token }: { token?: string }) {
+export default function CreateProjectForm() {
   const form = useForm<FieldValues>({
     defaultValues: {
       title: "",
@@ -30,16 +29,17 @@ export default function CreateBlogForm({ token }: { token?: string }) {
     };
     newData.tags = values?.tags?.split(",");
 
-    try {
-      const result = await createBlog(newData, token as string);
-      const toastId = toast.loading("Blog creating");
-      if (result.success) {
-        form.reset();
-        toast.success("Blog created successfully", { id: toastId });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const result = await createBlog(newData);
+    //   const toastId = toast.loading("Blog creating");
+    //   if (result.success) {
+    //     form.reset();
+
+    //     toast.success("Blog created successfully", { id: toastId });
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
