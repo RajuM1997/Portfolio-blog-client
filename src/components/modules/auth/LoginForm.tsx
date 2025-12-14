@@ -52,7 +52,7 @@ export default function LoginForm() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6 w-full max-w-md"
+            className="space-y-6 w-full max-w-lg"
           >
             <h2 className="text-3xl font-bold text-center">Login</h2>
 

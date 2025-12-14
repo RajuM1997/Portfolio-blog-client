@@ -121,7 +121,7 @@ export default function HeroCanvas({
   return (
     <section
       ref={wrapperRef}
-      className={`${heightClass} w-full relative overflow-hidden px-4 lg-0`}
+      className={`${heightClass} w-full relative overflow-hidden px-4 lg:px-0`}
     >
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       <div

@@ -18,18 +18,21 @@ export const createProject = async (
   if (!res.ok) {
     console.error("Create Project Failed", await res.text());
   }
-  updateTag("project");
+  updateTag("PROJECT");
   return await res.json();
 };
 
-export const getMyProject = async (token: string) => {
+export const getMyProject = async (token: string, limit: number) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API}/project/my-projects`,
+    `${process.env.NEXT_PUBLIC_BASE_API}/project/my-projects?limit=${limit}`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
+      },
+      next: {
+        tags: ["PROJECT"],
       },
     }
   );
@@ -39,16 +42,19 @@ export const getMyProject = async (token: string) => {
   return await res.json();
 };
 
-export const getAllProject = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    next: {
-      tags: ["project"],
-    },
-  });
+export const getAllProject = async (limit: number) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API}/project?limit=${limit}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: {
+        tags: ["PROJECT"],
+      },
+    }
+  );
   if (!res.ok) {
     console.error("Project data fetching Failed", await res.text());
   }
@@ -68,7 +74,7 @@ export const deleteProject = async (id: number, token: string) => {
   if (!res.ok) {
     console.error("Project delete Failed", await res.text());
   }
-  updateTag("project");
+  updateTag("PROJECT");
 
   return await res.json();
 };
@@ -90,6 +96,6 @@ export const updateProject = async (
   if (!res.ok) {
     console.error("Project update Failed", await res.text());
   }
-  updateTag("project");
+  updateTag("PROJECT");
   return await res.json();
 };

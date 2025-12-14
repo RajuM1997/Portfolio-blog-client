@@ -5,7 +5,7 @@ import SkillsSection from "./SkillSection";
 
 export default function AboutMe() {
   return (
-    <section className="py-16 px-4">
+    <section className="py-16 px-4 lg:px-0">
       <div className="flex flex-col xl:flex-row items-center gap-12">
         {/* Profile Image */}
         <div className="shrink-0">

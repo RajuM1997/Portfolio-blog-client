@@ -1,11 +1,27 @@
 import { getAllBlog } from "@/action/blog/route";
 import BlogCard from "@/components/modules/Blog/BlogCard";
 import { IBlog } from "@/types/blog";
+import { Metadata } from "next";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  return {
+    title: "Blogs | DevSpace",
+    description:
+      "Read and manage blogs on DevSpace. Create, update, and delete posts with ease.",
+    keywords: ["DevSpace blogs", "developer blog", "tech articles"],
+    openGraph: {
+      title: "Blogs | DevSpace",
+      description:
+        "Explore developer blogs and technical articles on DevSpace.",
+      type: "article",
+    },
+  };
+};
 
 const Blogs = async () => {
   const { data } = await getAllBlog();
   return (
-    <div className="py-26 px-4 lg:px-0">
+    <div className="py-26 px-4  md:px-16">
       <div className="pb-8">
         <h1 className="text-4xl font-bold mb-4 text-center pt-5">
           Blog & Insights

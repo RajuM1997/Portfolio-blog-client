@@ -14,53 +14,68 @@ import { useAuth } from "@/providers/AuthProvider";
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
+
   return (
     <aside className="flex h-screen w-64 flex-col border-r">
       {/* Top navigation */}
-      <nav className="flex-1 space-y-2 p-4">
-        <Link
-          href="/"
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
-        >
-          <Home className="h-4 w-4" />
-          Home
-        </Link>
-        <Link
-          href="/dashboard/blog"
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
-        >
-          <User2 className="h-4 w-4" />
-          All Users
-        </Link>
-        <Link
-          href="/dashboard/project"
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
-        >
-          <WorkflowIcon className="h-4 w-4" />
-          Projects
-        </Link>
-        <Link
-          href="/dashboard/my-projects"
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
-        >
-          <WorkflowIcon className="h-4 w-4" />
-          My Project
-        </Link>
-        <Link
-          href="/dashboard/blog"
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
-        >
-          <PlusCircle className="h-4 w-4" />
-          Blogs
-        </Link>
-        <Link
-          href="/dashboard/my-blogs"
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
-        >
-          <Blend className="h-4 w-4" />
-          My Blog
-        </Link>
-      </nav>
+      {user?.role === "ADMIN" ? (
+        <nav className="flex-1 space-y-2 p-4">
+          <Link
+            href="/"
+            className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
+          >
+            <Home className="h-4 w-4" />
+            Home
+          </Link>
+          <Link
+            href="/dashboard/all-users"
+            className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
+          >
+            <User2 className="h-4 w-4" />
+            All Users
+          </Link>
+          <Link
+            href="/dashboard/project"
+            className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
+          >
+            <WorkflowIcon className="h-4 w-4" />
+            Projects
+          </Link>
+
+          <Link
+            href="/dashboard/blog"
+            className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
+          >
+            <PlusCircle className="h-4 w-4" />
+            Blogs
+          </Link>
+        </nav>
+      ) : (
+        <nav className="flex-1 space-y-2 p-4">
+          <Link
+            href="/"
+            className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
+          >
+            <Home className="h-4 w-4" />
+            Home
+          </Link>
+
+          <Link
+            href="/dashboard/my-projects"
+            className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
+          >
+            <WorkflowIcon className="h-4 w-4" />
+            My Project
+          </Link>
+          <Link
+            href="/dashboard/my-blogs"
+            className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
+          >
+            <Blend className="h-4 w-4" />
+            My Blog
+          </Link>
+        </nav>
+      )}
 
       {/* Bottom action */}
       {user?.email && (

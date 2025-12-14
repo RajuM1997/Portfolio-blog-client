@@ -1,8 +1,9 @@
 import { getAllBlog } from "@/action/blog/route";
+import BlogCard from "@/components/modules/Blog/BlogCard";
 import AboutMe from "@/components/modules/homes/AboutSection";
-import BlogSection from "@/components/modules/homes/BlogSection";
 import HeroCanvas from "@/components/modules/homes/HeroSection";
 import ProjectShowcase from "@/components/modules/homes/ProjectSection";
+import { IBlog } from "@/types/blog";
 export default async function Home() {
   const { data } = await getAllBlog();
 
@@ -12,7 +13,11 @@ export default async function Home() {
         <HeroCanvas heightClass="min-h-screen" />
         <AboutMe />
         <ProjectShowcase />
-        <BlogSection blogs={data} />
+        {data?.map((blog: IBlog, i: number) => (
+          <div className="grid grid-cols-1 md:grid-cols-2" key={i}>
+            <BlogCard index={i} blog={blog} />
+          </div>
+        ))}
       </main>
     </div>
   );

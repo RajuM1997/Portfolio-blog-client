@@ -79,7 +79,7 @@ export default function SkillsSection() {
   const maxDistance = 400;
 
   return (
-    <section className="relative w-full overflow-hidden flex flex-col items-center">
+    <section className="relative w-full overflow-hidden flex flex-col items-center px-4 lg:px-0">
       {/* CARD GRID */}
       <div
         ref={gridRef}

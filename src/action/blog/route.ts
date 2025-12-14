@@ -16,20 +16,23 @@ export const createBlog = async (payload: Partial<IBlog>, token: string) => {
   if (!res.ok) {
     console.error("Create blog Failed", await res.text());
   }
-  updateTag("blog");
+  updateTag("BLOG");
   return await res.json();
 };
 
-export const getAllBlog = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    next: {
-      tags: ["blog"],
-    },
-  });
+export const getAllBlog = async (limit = 100) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API}/blog?limit=${limit}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: {
+        tags: ["BLOG"],
+      },
+    }
+  );
   if (!res.ok) {
     console.error("User data fetching Failed", await res.text());
   }
@@ -43,6 +46,22 @@ export const getMyBlog = async (token: string) => {
     headers: {
       "Content-Type": "application/json",
       Authorization: token,
+    },
+    next: {
+      tags: ["BLOG"],
+    },
+  });
+  if (!res.ok) {
+    console.error("Blog Data Fetching Failed", await res.text());
+  }
+  return await res.json();
+};
+
+export const getBlogById = async (id: number) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
   });
   if (!res.ok) {
@@ -63,7 +82,7 @@ export const deleteBlog = async (id: number, token: string) => {
   if (!res.ok) {
     console.error("Blog delete Failed", await res.text());
   }
-  updateTag("blog");
+  updateTag("BLOG");
 
   return await res.json();
 };
@@ -85,6 +104,6 @@ export const updateBlog = async (
   if (!res.ok) {
     console.error("Blog update Failed", await res.text());
   }
-  updateTag("blog");
+  updateTag("BLOG");
   return await res.json();
 };

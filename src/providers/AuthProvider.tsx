@@ -56,7 +56,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("User Login Failed", await res.text());
     }
     const result = await res.json();
-    setUser(result.user);
+
+    setUser(result.data?.user);
     return result;
   };
 
