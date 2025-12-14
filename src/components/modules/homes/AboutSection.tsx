@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { aboutMe } from "@/data/about";
 import SkillsSection from "./SkillSection";
-// import { Facebook, Github, Linkedin } from "lucide-react";
 
 export default function AboutMe() {
   return (
@@ -15,6 +14,7 @@ export default function AboutMe() {
               alt={aboutMe.name}
               fill
               className="object-cover"
+              loading="eager"
             />
           </div>
         </div>

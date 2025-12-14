@@ -42,7 +42,7 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
                 alt="author-image"
                 width={50}
                 height={50}
-                className="rounded-full w-10 h-10 object-center"
+                loading="eager"
               />
             </figure>
             <span className="text-muted-foreground text-sm">
@@ -75,6 +75,7 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
             width={1000}
             height={400}
             className="rounded-lg object-cover w-full h-full lg:h-[450px]"
+            loading="eager"
           />
         </figure>
         <div className="pt-10">

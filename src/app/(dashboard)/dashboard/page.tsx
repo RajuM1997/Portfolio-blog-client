@@ -1,3 +1,4 @@
+import DashboardCharts from "@/components/modules/dashboard/DashboardChart";
 import { Metadata } from "next";
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -14,8 +15,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const dashboard = () => {
   return (
-    <div>
-      <h1>Dashboard page</h1>
+    <div className="w-full max-w-7xl mx-auto py-5">
+      <DashboardCharts />
     </div>
   );
 };

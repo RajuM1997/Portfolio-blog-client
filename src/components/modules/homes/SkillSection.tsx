@@ -133,6 +133,7 @@ export default function SkillsSection() {
                   width={48}
                   height={48}
                   className="relative z-10 object-contain transition-transform duration-300 group-hover:scale-110"
+                  loading="eager"
                 />
               </div>
             );

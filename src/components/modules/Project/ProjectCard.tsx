@@ -106,6 +106,7 @@ const ProjectCard = ({ data }: { data: IProject[] }) => {
                       object-cover transition-transform duration-300
                       w-full filter grayscale
                     `}
+                  loading="eager"
                 />
               </div>
 

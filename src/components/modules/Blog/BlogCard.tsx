@@ -19,6 +19,7 @@ const BlogCard = ({ blog, index }: IProps) => {
               alt="blog-image"
               fill
               className="object-cover px-3 lg:px-0 w-full h-full transition-transform duration-300 filter grayscale"
+              loading="eager"
             />
 
             <div
@@ -85,6 +86,7 @@ const BlogCard = ({ blog, index }: IProps) => {
               alt="blog-image"
               fill
               className="object-cover px-3 lg:px-0 w-full h-full transition-transform duration-300 filter grayscale"
+              loading="eager"
             />
 
             <div

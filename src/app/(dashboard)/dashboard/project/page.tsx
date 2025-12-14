@@ -3,7 +3,7 @@ import ProjectTable from "@/components/modules/Project/ProjectTable";
 import { getServerCookies } from "@/lib/getServerCookie";
 
 const Project = async () => {
-  const { data } = await getAllProject();
+  const { data } = await getAllProject(100);
   const token = await getServerCookies();
 
   return (
