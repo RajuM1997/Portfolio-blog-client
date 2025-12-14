@@ -15,8 +15,10 @@ export default async function ProjectShowcase() {
 
   return (
     <section className="relative py-16 w-ful px-4 lg:px-0">
-      <h2 className="text-4xl font-bold mb-4 text-center pb-5">My Projects</h2>
-      <div className="py-5 text-right">
+      <h2 className="text-4xl font-bold mb-4 text-center pb-5">
+        Projects & Portfolio
+      </h2>
+      <div className="py-5 text-center md:text-right">
         <CommonButton>
           <Link href={"/project"}>See All</Link>
         </CommonButton>

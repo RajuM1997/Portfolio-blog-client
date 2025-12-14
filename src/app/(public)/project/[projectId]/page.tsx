@@ -35,9 +35,9 @@ const ProjectDetails = async ({
   const { data } = await getProjectById(Number(projectId));
 
   return (
-    <div className="py-26 px-4 md:px-16 ">
-      <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-12 md:col-span-5">
+    <div className="py-26 px-4 md:px-16 flex items-center ">
+      <div className="grid grid-cols-12 gap-5 items-center ">
+        <div className="col-span-12 md:col-span-5 ">
           <figure>
             <Image
               src={data.thumbnail}
@@ -55,21 +55,28 @@ const ProjectDetails = async ({
               {data?.project_name}
             </h4>
             <p className="text-lg py-5 font-normal">{data?.description}</p>
-            <div className="flex gap-4 flex-wrap">
-              {data?.technology?.map((tech: string) => (
-                <span
-                  key={tech}
-                  className="border text-sm border-white rounded-xl p-2"
-                >
-                  {tech}
-                </span>
-              ))}
+            <div>
+              <h4 className="font-extrabold text-xl pb-4">Technology</h4>
+              <div className="flex gap-4 flex-wrap">
+                {data?.technology?.map((tech: string) => (
+                  <span
+                    key={tech}
+                    className="border text-sm border-white rounded-xl p-2"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
-            <ul className="mt-4 list-disc list-inside space-y-1 text-sm text-white/70">
-              {data?.features?.map((feature: string, idx: number) => (
-                <li key={idx}>{feature}</li>
-              ))}
-            </ul>
+            <div className="mt-4">
+              <h4 className="font-extrabold text-xl">Features</h4>
+              <ul className="mt-4 list-disc list-inside space-y-1 text-sm text-white/70">
+                {data?.features?.map((feature: string, idx: number) => (
+                  <li key={idx}>{feature}</li>
+                ))}
+              </ul>
+            </div>
+
             <div className="mt-4 flex gap-4 flex-col md:flex-row justify-between">
               <div className="flex gap-4 justify-center">
                 <a

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const token = req.cookies.get("accessToken")?.value;
 
   // protect dashboard routes

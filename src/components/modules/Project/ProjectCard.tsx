@@ -14,17 +14,11 @@ import Image from "next/image";
 import { useState } from "react";
 import CommonButton from "../homes/CommonButton";
 import { IProject } from "@/types/project";
+import Link from "next/link";
 
 const ProjectCard = ({ data }: { data: IProject[] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // const data = Array.from({ length: 4 }).map((_, i) => ({
-  //   title: "Project Title",
-  //   description: "A brief description about the project goes here.",
-  //   features: ["Feature 1", "Feature 2", "Feature 3"],
-  //   thumbnail:
-  //     "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  // }));
   return (
     <div className="grid w-full px-4 lg:px-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
       {data?.map((project, index) => {
@@ -117,11 +111,6 @@ const ProjectCard = ({ data }: { data: IProject[] }) => {
 
                 <p className="text-white/80 flex-1">{project.description}</p>
 
-                <ul className="mt-4 list-disc list-inside space-y-1 text-sm text-white/70">
-                  {project?.features?.map((feature, idx) => (
-                    <li key={idx}>{feature}</li>
-                  ))}
-                </ul>
                 <div className="flex gap-4 py-5 flex-wrap">
                   {project?.technology?.map((tach) => (
                     <span
@@ -132,8 +121,8 @@ const ProjectCard = ({ data }: { data: IProject[] }) => {
                     </span>
                   ))}
                 </div>
-                <div className="mt-4 flex gap-4 flex-col md:flex-row justify-between">
-                  <div className="flex gap-4 justify-center">
+                <div className="mt-4 flex gap-4 flex-col flex-wrap md:flex-row justify-between">
+                  <div className="flex gap-4 justify-center flex-wrap">
                     <a
                       href={project.live_link}
                       className="
@@ -143,6 +132,7 @@ const ProjectCard = ({ data }: { data: IProject[] }) => {
                         hover:bg-blue-600 hover:text-white
                         transition w-full md:w-auto text-center
                       "
+                      target="_blank"
                     >
                       Live Site
                     </a>
@@ -156,6 +146,7 @@ const ProjectCard = ({ data }: { data: IProject[] }) => {
                         hover:bg-blue-600 hover:text-white
                         transition w-full md:w-auto text-center
                       "
+                      target="_blank"
                     >
                       GitHub Client
                     </a>
@@ -168,11 +159,14 @@ const ProjectCard = ({ data }: { data: IProject[] }) => {
                         hover:bg-blue-600 hover:text-white
                         transition w-full md:w-auto text-center
                       "
+                      target="_blank"
                     >
                       GitHub Server
                     </a>
                   </div>
-                  {/* <CommonButton>View Details</CommonButton> */}
+                  <CommonButton>
+                    <Link href={`/project/${project?.id}`}>View Details</Link>
+                  </CommonButton>
                 </div>
               </div>
             </Card>

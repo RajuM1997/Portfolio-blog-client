@@ -12,7 +12,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 
@@ -40,10 +39,6 @@ export default function LoginForm() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleSocialLogin = (provider: "google" | "github") => {
-    console.log(`Login with ${provider}`);
   };
 
   return (
@@ -97,48 +92,10 @@ export default function LoginForm() {
             <Button type="submit" className="w-full mt-2">
               Login
             </Button>
-
-            <div className="flex items-center justify-center space-x-2">
-              <div className="h-px w-16 bg-gray-300" />
-              <span className="text-sm text-gray-500">or continue with</span>
-              <div className="h-px w-16 bg-gray-300" />
-            </div>
           </form>
         </Form>
         {/* Social Login Buttons */}
-        <div className="flex flex-col gap-3 mt-4">
-          <Button
-            variant="outline"
-            className="flex items-center justify-center gap-2"
-            onClick={() => handleSocialLogin("github")}
-          >
-            {/* GitHub */}
-            <Image
-              src="https://img.icons8.com/ios-glyphs/24/github.png"
-              alt="GitHub"
-              className="w-5 h-5"
-              width={20}
-              height={20}
-            />
-            Login with GitHub
-          </Button>
 
-          <Button
-            variant="outline"
-            className="flex items-center justify-center gap-2"
-            // onClick={() => signIn()}
-          >
-            {/* Google */}
-            <Image
-              src="https://img.icons8.com/color/24/google-logo.png"
-              alt="Google"
-              className="w-5 h-5"
-              width={20}
-              height={20}
-            />
-            Login with Google
-          </Button>
-        </div>
         <p className="text-center text-sm text-gray-500 mt-4">
           Don’t have an account?{" "}
           <Link href="/register" className="text-blue-500 hover:underline">

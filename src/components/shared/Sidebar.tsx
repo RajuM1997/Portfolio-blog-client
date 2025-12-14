@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import {
   Home,
   PlusCircle,
@@ -11,6 +10,7 @@ import {
   Blend,
 } from "lucide-react";
 import { useAuth } from "@/providers/AuthProvider";
+import CommonButton from "../modules/homes/CommonButton";
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
@@ -80,14 +80,12 @@ export default function Sidebar() {
       {/* Bottom action */}
       {user?.email && (
         <div className="p-4 border-t border-gray-500">
-          <Button
-            variant="destructive"
-            className="w-full justify-start gap-2 cursor-pointer"
-            onClick={() => logout()}
-          >
-            <LogOut className="h-4 w-4" />
-            Logout
-          </Button>
+          <CommonButton onClick={() => logout()}>
+            <span className="flex items-center gap-2">
+              <LogOut className="h-4 w-4" />
+              Logout
+            </span>
+          </CommonButton>
         </div>
       )}
     </aside>

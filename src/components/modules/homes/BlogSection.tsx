@@ -4,6 +4,7 @@ import { getAllBlog } from "@/action/blog/route";
 
 const BlogSection = async () => {
   const { data } = await getAllBlog(3);
+
   return (
     <section className="py-16 px-4 lg:px-0">
       <h1 className="text-4xl font-bold mb-4 text-center pb-5">
