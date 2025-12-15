@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
+import { loginAction } from "@/action/auth/route";
 
 // type LoginFormValues = {
 //   email: string;
@@ -27,13 +28,16 @@ export default function LoginForm() {
       password: "",
     },
   });
-  const { login } = useAuth();
+  const { setUser } = useAuth();
   const router = useRouter();
 
   const onSubmit = async (values: FieldValues) => {
     try {
-      const res = await login(values);
+      const res = await loginAction(values);
+      console.log(res);
+
       if (res.success) {
+        setUser(res.user);
         router.push("/");
       }
     } catch (error) {

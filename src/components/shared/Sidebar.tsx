@@ -1,25 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Home,
-  PlusCircle,
-  LogOut,
-  User2,
-  WorkflowIcon,
-  Blend,
-} from "lucide-react";
+import { Home, PlusCircle, User2, WorkflowIcon, Blend } from "lucide-react";
 import { useAuth } from "@/providers/AuthProvider";
-import CommonButton from "../modules/homes/CommonButton";
 
 export default function Sidebar() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
-    <aside className="flex h-screen w-64 flex-col border-r">
+    <aside className="flex h-20 md:h-screen md:w-64 flex-col border-r">
       {/* Top navigation */}
       {user?.role === "ADMIN" ? (
-        <nav className="flex-1 space-y-2 p-4">
+        <nav className="flex-1 flex items-center lg:items-start flex-row md:flex-col md:space-y-2 p-4">
           <Link
             href="/"
             className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
@@ -51,7 +43,7 @@ export default function Sidebar() {
           </Link>
         </nav>
       ) : (
-        <nav className="flex-1 space-y-2 p-4">
+        <nav className="flex-1 flex items-center lg:items-start flex-row md:flex-col md:space-y-2 p-4">
           <Link
             href="/"
             className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-black"
@@ -75,18 +67,6 @@ export default function Sidebar() {
             My Blog
           </Link>
         </nav>
-      )}
-
-      {/* Bottom action */}
-      {user?.email && (
-        <div className="p-4 border-t border-gray-500">
-          <CommonButton onClick={() => logout()}>
-            <span className="flex items-center gap-2">
-              <LogOut className="h-4 w-4" />
-              Logout
-            </span>
-          </CommonButton>
-        </div>
       )}
     </aside>
   );

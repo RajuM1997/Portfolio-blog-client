@@ -33,7 +33,7 @@ const Blogs = async () => {
         </p>
       </div>
       {data.map((blog: IBlog, i: number) => (
-        <div className="grid grid-cols-1 md:grid-cols-2" key={blog.id}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" key={blog.id}>
           <BlogCard blog={blog} index={i} />
         </div>
       ))}

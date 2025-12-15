@@ -59,7 +59,7 @@ const BlogCard = ({ blog, index }: IProps) => {
         </>
       ) : (
         <>
-          <div className="bg-blue-600/5 order-2 md:order-1  p-5">
+          <div className="bg-blue-600/5 order-2 lg:order-1  p-5">
             <h4 className="text-xl font-bold pt-5 md:py-5 transition-all hover:text-blue-500">
               {blog.title}
             </h4>
@@ -80,7 +80,7 @@ const BlogCard = ({ blog, index }: IProps) => {
               </CommonButton>
             </div>
           </div>
-          <div className="relative w-full order-1 md:order-2 min-h-[250px] group overflow-hidden">
+          <div className="relative w-full order-1 lg:order-2 min-h-[250px] group overflow-hidden">
             <Image
               src={blog.thumbnail}
               alt="blog-image"

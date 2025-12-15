@@ -11,7 +11,7 @@ const BlogSection = async () => {
         Blog & Insights
       </h1>
       {data?.map((blog: IBlog, i: number) => (
-        <div className="grid grid-cols-1 md:grid-cols-2" key={i}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" key={i}>
           <BlogCard index={i} blog={blog} />
         </div>
       ))}
