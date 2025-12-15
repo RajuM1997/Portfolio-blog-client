@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 
 export const register = async (data: FieldValues) => {
@@ -46,6 +47,23 @@ export const loginAction = async (data: FieldValues) => {
     user: result.data.user,
     token: result.data.accessToken,
   };
+};
+export const logoutAction = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!res.ok) {
+    console.error("User Login Failed", await res.text());
+  }
+
+  // Set cookies
+  const cookieStore = await cookies();
+  cookieStore.delete("accessToken");
+  redirect("/login");
 };
 
 export async function GET() {
