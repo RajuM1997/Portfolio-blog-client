@@ -23,15 +23,14 @@ interface IProps {
 
 const BlogTable = ({ data, token }: IProps) => {
   const handleDeleteBlog = async (id?: string) => {
-    try {
-      const result = await deleteBlog(Number(id), token as string);
-      if (result.success) {
-        toast.success("Blog delete successfully");
-      }
-    } catch (error) {
-      console.log(error);
+    const result = await deleteBlog(Number(id), token as string);
+    if (result.success) {
+      toast.success("Blog delete successfully");
+    } else {
+      toast.error(result.message || "Failed to delete blog");
     }
   };
+
   return (
     <div className="w-full max-w-7xl">
       <div className="ml-auto text-right py-5">

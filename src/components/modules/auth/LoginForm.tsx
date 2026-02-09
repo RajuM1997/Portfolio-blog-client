@@ -15,6 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import { loginAction } from "@/action/auth/route";
+import { toast } from "sonner";
 
 // type LoginFormValues = {
 //   email: string;
@@ -32,16 +33,13 @@ export default function LoginForm() {
   const router = useRouter();
 
   const onSubmit = async (values: FieldValues) => {
-    try {
-      const res = await loginAction(values);
-      console.log(res);
+    const res = await loginAction(values);
 
-      if (res.success) {
-        setUser(res.user);
-        router.push("/");
-      }
-    } catch (error) {
-      console.log(error);
+    if (res.success) {
+      setUser(res.user);
+      router.push("/");
+    } else {
+      toast.error(res.message || "Failed to login");
     }
   };
 

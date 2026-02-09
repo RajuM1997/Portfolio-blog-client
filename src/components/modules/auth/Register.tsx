@@ -37,14 +37,12 @@ export default function RegisterForm() {
   });
 
   const onSubmit = async (values: FieldValues) => {
-    try {
-      const res = await register(values);
-      if (res?.id) {
-        toast.success("User register successfully");
-        router.push("/login");
-      }
-    } catch (error) {
-      console.error(error);
+    const res = await register(values);
+    if (res?.id) {
+      toast.success("User register successfully");
+      router.push("/login");
+    } else {
+      toast.error(res.message || "Failed to register");
     }
   };
 

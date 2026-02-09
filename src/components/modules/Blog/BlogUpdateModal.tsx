@@ -49,14 +49,13 @@ export function BlogUpdateModel({ blog, token }: IProps) {
       newData.tags = values?.tags?.split(",");
     }
     const toastId = toast.loading("Blog updating...");
-    try {
-      const res = await updateBlog(newData, Number(blog.id), token);
-      if (res.success) {
-        toast.success("Blog updated successfully", { id: toastId });
-        setOpen(false);
-      }
-    } catch (error) {
-      console.log(error);
+
+    const res = await updateBlog(newData, Number(blog.id), token);
+    if (res.success) {
+      toast.success("Blog updated successfully", { id: toastId });
+      setOpen(false);
+    } else {
+      toast.error(res.message || "Failed to update blog");
     }
   };
 

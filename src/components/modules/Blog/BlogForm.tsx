@@ -30,15 +30,13 @@ export default function CreateBlogForm({ token }: { token?: string }) {
     };
     newData.tags = values?.tags?.split(",");
 
-    try {
-      const result = await createBlog(newData, token as string);
-      const toastId = toast.loading("Blog creating");
-      if (result.success) {
-        form.reset();
-        toast.success("Blog created successfully", { id: toastId });
-      }
-    } catch (error) {
-      console.log(error);
+    const result = await createBlog(newData, token as string);
+    const toastId = toast.loading("Blog creating");
+    if (result.success) {
+      form.reset();
+      toast.success("Blog created successfully", { id: toastId });
+    } else {
+      toast.error(result.message || "Failed to create blog");
     }
   };
 

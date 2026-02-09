@@ -56,14 +56,13 @@ export function ProjectUpdateModel({ project, token }: IProjectProps) {
       newData.technology = values?.technology?.split(",");
     }
     const toastId = toast.loading("Project updating...");
-    try {
-      const res = await updateProject(newData, Number(project.id), token);
-      if (res.success) {
-        toast.success("Project updated successfully", { id: toastId });
-        setOpen(false);
-      }
-    } catch (error) {
-      console.log(error);
+
+    const res = await updateProject(newData, Number(project.id), token);
+    if (res.success) {
+      toast.success("Project updated successfully", { id: toastId });
+      setOpen(false);
+    } else {
+      toast.error(res.message || "Failed to update project");
     }
   };
 
