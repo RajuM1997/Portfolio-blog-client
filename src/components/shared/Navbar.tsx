@@ -60,7 +60,7 @@ const Navbar = () => {
           ) : (
             <CommonButton>
               <Link href="/login" className="block w-full text-center">
-                Login
+                Sign in
               </Link>
             </CommonButton>
           )}
